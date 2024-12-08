@@ -3,6 +3,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const database = require('./database/db');
+const webRouter = require('./routes/web.r');
+const apiRouter = require('./routes/api.r')
 
 // Tải biến môi trường từ tệp .env
 dotenv.config();
@@ -19,9 +21,8 @@ app.use(express.json());
 
 // Định nghĩa các route (nếu có)
 // Ví dụ: Route gốc
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(webRouter);
+app.use('/api',apiRouter);
 
 // Khởi tạo cơ sở dữ liệu và sau đó khởi động server
 database.initDB()

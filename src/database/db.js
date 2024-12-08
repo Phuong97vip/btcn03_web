@@ -14,7 +14,7 @@ console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
 
 const config = {
     host: process.env.DB_HOST,          // e.g., 'localhost'
-    port: process.env.DB_PORT,          // e.g., 5432
+    port: process.env.DB_PORT,          // e.g., 543
     database: process.env.DB_NAME,      // e.g., 'wad2231db'
     user: process.env.DB_USER,          // e.g., 'u21120534'
     password: process.env.DB_PASSWORD,  // e.g., 'r*N97D8J'
@@ -506,44 +506,7 @@ const insertData = async (data) => {
                 await insertIfNotEmpty(t, validCastMovies, castMoviesCS, 'castmovies');
             }
 
-            // **9. Insert Top50Movies và MostPopularMovies vào các bảng riêng nếu cần**
-            // Nếu bạn muốn lưu Top50Movies và MostPopularMovies vào các bảng riêng, hãy đảm bảo rằng các bảng này đã được tạo và chèn dữ liệu tương ứng.
-            /*
-            if (data.Top50Movies && data.Top50Movies.length > 0) {
-                const top50Movies = data.Top50Movies.map(movie => ({
-                    id: movie.id,
-                    rank: parseInt(movie.rank),
-                    title: movie.title,
-                    fulltitle: movie.fullTitle || null,
-                    year: movie.year,
-                    image: movie.image || null,
-                    crew: movie.crew || null,
-                    imdbrating: movie.imDbRating ? parseFloat(movie.imDbRating) : null,
-                    imdbratingcount: movie.imDbRatingCount ? parseInt(movie.imDbRatingCount) : null
-                }));
-
-                const top50CS = new pgp.helpers.ColumnSet(['id', 'rank', 'title', 'fulltitle', 'year', 'image', 'crew', 'imdbrating', 'imdbratingcount'], { table: 'top50movies' });
-                await insertIfNotEmpty(t, top50Movies, top50CS, 'top50movies');
-            }
-
-            if (data.MostPopularMovies && data.MostPopularMovies.length > 0) {
-                const mostPopularMovies = data.MostPopularMovies.map(movie => ({
-                    id: movie.id,
-                    rank: parseInt(movie.rank),
-                    rankUpDown: movie.rankUpDown || null,
-                    title: movie.title,
-                    fulltitle: movie.fullTitle || null,
-                    year: movie.year,
-                    image: movie.image || null,
-                    crew: movie.crew || null,
-                    imdbrating: movie.imDbRating ? parseFloat(movie.imDbRating) : null,
-                    imdbratingcount: movie.imDbRatingCount ? parseInt(movie.imDbRatingCount) : null
-                }));
-
-                const mostPopularCS = new pgp.helpers.ColumnSet(['id', 'rank', 'rankUpDown', 'title', 'fulltitle', 'year', 'image', 'crew', 'imdbrating', 'imdbratingcount'], { table: 'mostpopularmovies' });
-                await insertIfNotEmpty(t, mostPopularMovies, mostPopularCS, 'mostpopularmovies');
-            }
-            */
+        
         });
         console.log('Dữ liệu đã được chèn vào cơ sở dữ liệu.');
     } catch (error) {
@@ -557,6 +520,14 @@ const initDB = async () => {
     try {
         // Create tables in schema s21534
         await createTables();
+
+        // Check if data already exists
+        const dataExists = await db.oneOrNone('SELECT 1 FROM movies LIMIT 1');
+
+        if (dataExists) {
+            console.log('Dữ liệu đã tồn tại trong cơ sở dữ liệu. Bỏ qua bước chèn dữ liệu.');
+            return; // Exit the function early
+        }
 
         // Fetch data from APIs
         const apiData = await fetchDataFromAPI();

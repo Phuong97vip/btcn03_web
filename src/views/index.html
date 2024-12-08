@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài tập cá nhân 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="/Js/jquery.js"></script>
+  <link rel="stylesheet" href="/Css/style.css">
+</head>
+
+<body class="bg ">
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="row ">
+      <nav class="navbar bg-body-tertiary rounded border border-light pt-3 pb-3  mb-2" data-bs-theme="theme">
+        <div class="container-fluid  ">
+          <h1 class="navbar-brand fs-6 w-25">21120159</h1>
+          <h1 class="navbar-brand fs-1">Movie Infomation</h1>
+          <div class="navbar-brand d-flex flex-column align-items-end w-25">
+            <div class="form-check form-switch">
+              <input class="form-check-input inputDarkMode" 21159{if darkMode} checked {else} {/if}  type="checkbox" role="switch"
+                id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Dark mode</label>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Navigation-->
+    <div class="row mb-2">
+      <nav class="navbar bg-body-tertiary rounded border border-light " :data-bs-theme="theme">
+        <div class="container-fluid  ">
+          <a class="navbar-brand homeButton" href="/"><svg xmlns="http://www.w3.org/2000/svg" height="1em"
+              viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+              <style>
+                svg {
+                  fill: #000000
+                }
+              </style>
+              <path
+                d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
+            </svg></a>
+          <a class="navbar-brand favpage">21159</a>
+          <form action="/search" method="post" class="d-flex justify-content-end searchForm w-50" role="search">
+            <input name="searchString" class="form-control me-2 w-50" type="search" placeholder="Search"
+              aria-label="Search" data-bs-theme="light">
+            <button class="btn btn-outline-success w-25  me-2" type="submit">Search</button>
+            <div class="btn-group mr-5  me-2" role="group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                searchType
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="form-check dropdown-item">
+                    <input class="form-check-input" type="radio" name="searchType" id="exampleRadios1" value="Actor"
+                      checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Actor
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-check dropdown-item">
+                    <input class="form-check-input" type="radio" name="searchType" id="exampleRadios1" value="Type"
+                      checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Type
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-check dropdown-item ">
+                    <input class="form-check-input" type="radio" name="searchType" id="exampleRadios1" value="Title"
+                      checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                      Title
+                    </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Slider top rating -->
+    <div class="row">
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner carouselTopRating">
+          21159{for item in topRatingList}
+          <div class="carousel-item ciTopRating">
+            <img mvid="{item.id}" src="{item.image}" class=" d-block w-25 mx-auto" alt="{item.image}">
+            <div class="carousel-caption  d-md-block">
+              <h5>{item.fullTitle}</h5>
+            </div>
+          </div>
+          {/for}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slider Box Office -->
+    <div class="row ">
+      <div id="boxOfficeSlider" class="carousel slide homeSlider">
+        <h1 class="heading">Top Box Office</h1>
+        <div class="carousel-inner ">
+          <div class="boInner"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#boxOfficeSlider" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#boxOfficeSlider" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slider FAV -->
+    <div class="row ">
+      <div id="topRatingFav" class="carousel slide homeSlider">
+        <h1 class="heading">Top favorites</h1>
+        <div class="carousel-inner ">
+          <div class="boInner2"></div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#topRatingFav" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#topRatingFav" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="row ">
+      <nav class="navbar bg-body-tertiary rounded border border-light p-3 mb-2" :data-bs-theme="theme">
+        <div class="container-fluid ">
+          <h1 class="navbar-brand fs-6 ">footer</h1>
+        </div>
+      </nav>
+    </div>
+
+  </div>
+</body>
+
+<script src="/Js/index.js"></script>
+
+<script>
+  let dark = false;
+  const updateMode = () => {
+    if ($('.inputDarkMode').is(':checked')) {
+      $('.bg').toggleClass('bg-dark')
+      $('.bg').removeClass('bg-body-secondary')
+      $('.heading').toggleClass('text-light');
+      $('.heading').removeClass('text-dark');
+      $('.searchForm').attr('action', `/search/dark=true`);
+      return true;
+    } else {
+      $('.bg').toggleClass('bg-body-secondary')
+      $('.bg').removeClass('bg-dark')
+      $('.heading').toggleClass('text-dark');
+      $('.heading').removeClass('text-light');
+      $('.searchForm').attr('action', `/search/dark=false`);
+      return false
+    }
+  }
+  dark = updateMode();
+  $('.inputDarkMode').on('change', (e) => {
+    dark = updateMode();
+  })
+  $(document).on('click', 'img', function () {
+      let movieId = $(this).attr('mvid');
+      window.location.href = `/detail/movies/id=${movieId}/dark=${dark}`;
+  });
+
+  $('.favpage').on('click',() => {
+    window.location.href = `/fav/dark=${dark}`;
+  })
+
+</script>
+
+
+</html>
